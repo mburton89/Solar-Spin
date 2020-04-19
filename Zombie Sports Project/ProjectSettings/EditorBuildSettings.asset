@@ -4,5 +4,11 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Home.unity
+    guid: 2a5624a5e0b8e0a4ba8b09140efdb0f9
+  - enabled: 1
+    path: Assets/Scenes/3DRetroWave.unity
+    guid: 855653a95749a5744a176c43be04292e
   m_configObjects: {}
