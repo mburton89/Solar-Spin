@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class SessionManager : MonoBehaviour
 {
     public static SessionManager Instance;
-    [SerializeField] private Button _startButton;
+    //[SerializeField] private Button _startButton;
     public int sunPosition;
 
     private void Awake()
@@ -15,6 +15,7 @@ public class SessionManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -26,7 +27,7 @@ public class SessionManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("level", 0);
         PlayerPrefs.SetInt("deaths", 0);
-        _startButton.onClick.AddListener(StartGame);
+        //_startButton.onClick.AddListener(StartGame);
     }
 
     void StartGame()
@@ -41,13 +42,22 @@ public class SessionManager : MonoBehaviour
         if (PlayerPrefs.GetInt("deaths") < 5)
         {
             //Sun.Instance.MoveToPosition(PlayerPrefs.GetInt("deaths"));
-            SceneManager.LoadScene(1);
+            SoundManager.Instance.PlayGameOverSound();
+            StartCoroutine(DelayLoadScene(1));
         }
         else
         {
             PlayerPrefs.SetInt("level", 0);
             PlayerPrefs.SetInt("deaths", 0);
-            SceneManager.LoadScene(0);
+            SoundManager.Instance.PlayGameOverSound();
+            TextDisplay.Instance.ShowText("Game Over");
+            StartCoroutine(DelayLoadScene(0));
         }
+    }
+
+    private IEnumerator DelayLoadScene(int index)
+    {
+        yield return new WaitForSeconds(2);
+        SceneManager.LoadScene(index);
     }
 }

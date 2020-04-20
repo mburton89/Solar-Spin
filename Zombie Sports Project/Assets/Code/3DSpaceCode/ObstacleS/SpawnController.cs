@@ -161,6 +161,10 @@ public class SpawnController : MonoBehaviour
             {
                 level++;
             }
+            else
+            {
+                TextDisplay.Instance.ShowText("YOU WIN!");
+            }
         }
         else
         {
@@ -186,5 +190,9 @@ public class SpawnController : MonoBehaviour
         Speedometer.Instance.ShowSpeed(level);
         print("Ship.Instance.spinningSpeed " + Ship.Instance.spinningSpeed);
         SoundManager.Instance.PlayLevelUpSound();
+        if (level < 9)
+        {
+            TextDisplay.Instance.ShowText("Level Up!");
+        }
     }
 }
